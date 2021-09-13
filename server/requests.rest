@@ -1,0 +1,45 @@
+# app.post("/api/users/register", RegisterUser);
+# app.post("/api/users/login", LoginUser);
+# app.get("/api/users/auth", auth, getUserDetails);
+# app.get("/api/users/logout", auth, LogoutUser);
+###
+POST http://localhost:5000/api/users/register HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Oleksii",
+    "lastName": "Chaika",
+    "email": "oleksii.chaika@gmail.com",
+    "password": "123456!"
+}
+###
+POST http://localhost:5000/api/users/register HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Andy",
+    "lastName": "Vilson",
+    "email": "andy.vilson@gmail.com",
+    "password": "123456*"
+}
+###
+POST http://localhost:5000/api/users/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "oleksii.chaika@gmail.com",
+    "password": "123456!"
+}
+###
+POST http://localhost:5000/api/users/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "andy.vilson@gmail.com",
+    "password": "123456*"
+}
+###
+GET http://localhost:5000/api/users/auth HTTP/1.1
+###
+GET http://localhost:5000/api/users/logout HTTP/1.1
+###
