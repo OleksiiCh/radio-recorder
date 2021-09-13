@@ -1,6 +1,6 @@
 instruction from here - https://medium.com/wesionary-team/authentication-system-in-nodejs-express-mongodb-rest-apis-4653f8710745
 
-mongodb chould be installed
+mongodb should be installed
 
 npm i
 
