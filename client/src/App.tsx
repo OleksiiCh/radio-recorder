@@ -16,8 +16,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 // import { Button, Paper, TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
-import ScopedCssBaseline from "@material-ui/core/ScopedCssBaseline";
-import Copyright from "./components/Copyright/Copyright";
+import Loader from "./components/Loader/Loader";
+import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
 // import "./App.css";
 
 type Profile = {
@@ -68,72 +69,11 @@ function App() {
 
   const classes = useStyles();
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} onSubmit={onSubmit} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          {errors.email && <div className="error">Fill you email</div>}
-
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          {errors.password && <div className="error">Fill you password</div>}
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
+    <div>
+      <Login />
+      <Loader />
+      <Signup />
+    </div>
   );
 }
 export default App;
