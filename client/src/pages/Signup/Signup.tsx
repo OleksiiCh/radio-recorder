@@ -9,7 +9,6 @@ import {
   CssBaseline,
   FormControlLabel,
   Grid,
-  Link,
   Typography,
 } from "@material-ui/core";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
@@ -18,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "../../components/Copyright/Copyright";
 import Title from "../../components/Title/Title";
-
+import { Link } from "react-router-dom";
 // import "./App.css";
 
 type Profile = {
@@ -118,7 +117,7 @@ function Signup() {
 
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Sign in after form submition"
           />
           <Button
             type="submit"
@@ -131,9 +130,7 @@ function Signup() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Do You have an account? Sign In"}
-              </Link>
+              <Link to="/login">Do You have an account? Sign In</Link>
             </Grid>
           </Grid>
         </form>

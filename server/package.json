@@ -1,6 +1,6 @@
 {
-  "name": "recorver-radio-v2",
-  "version": "1.0.0",
+  "name": "recorder-radio-v2",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {

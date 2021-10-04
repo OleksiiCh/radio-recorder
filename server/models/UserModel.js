@@ -3,34 +3,37 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SALT = 10;
-const userSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: [true, "The email field is required!"],
-    trim: true,
-    unique: 1,
+const userSchema = mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: [true, "The email field is required!"],
+      trim: true,
+      unique: 1,
+    },
+    password: {
+      type: String,
+      required: [true, "The password field is required!"],
+      minlength: 5,
+    },
+    firstName: {
+      type: String,
+      required: [true, "The first name field is required!"],
+      trim: true,
+      maxlength: 100,
+    },
+    lastName: {
+      type: String,
+      required: [true, "The last name field is required!"],
+      trim: true,
+      maxlength: 100,
+    },
+    token: {
+      type: String,
+    },
   },
-  password: {
-    type: String,
-    required: [true, "The password field is required!"],
-    minlength: 5,
-  },
-  firstName: {
-    type: String,
-    required: [true, "The first name field is required!"],
-    trim: true,
-    maxlength: 100,
-  },
-  lastName: {
-    type: String,
-    required: [true, "The last name field is required!"],
-    trim: true,
-    maxlength: 100,
-  },
-  token: {
-    type: String,
-  },
-});
+  { collection: "users" }
+);
 //saving user data
 userSchema.pre("save", function (next) {
   var user = this;

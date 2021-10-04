@@ -1,4 +1,5 @@
 const { User } = require("../models/UserModel");
+
 exports.RegisterUser = async (req, res) => {
   const user = new User(req.body);
   await user.save((err, doc) => {
@@ -18,6 +19,7 @@ exports.RegisterUser = async (req, res) => {
     }
   });
 };
+
 exports.LoginUser = (req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
@@ -57,6 +59,7 @@ exports.LoginUser = (req, res) => {
     }
   });
 };
+
 exports.LogoutUser = (req, res) => {
   User.findByIdAndUpdate({ _id: req.user._id }, { token: "" }, (err) => {
     if (err) return res.json({ success: false, err });
@@ -65,6 +68,7 @@ exports.LogoutUser = (req, res) => {
       .send({ success: true, message: "Successfully Logged Out!" });
   });
 };
+
 //get authenticated user details
 exports.getUserDetails = (req, res) => {
   return res.status(200).json({

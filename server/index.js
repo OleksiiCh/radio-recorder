@@ -23,7 +23,10 @@ const {
   LogoutUser,
   getUserDetails,
 } = require("./controller/AuthController");
+const { getRadioStations } = require("./controller/RadioController");
+
 app.post("/api/users/register", RegisterUser);
 app.post("/api/users/login", LoginUser);
 app.get("/api/users/auth", auth, getUserDetails);
 app.get("/api/users/logout", auth, LogoutUser);
+app.get("/api/radio-stations", getRadioStations);

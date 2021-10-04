@@ -9,7 +9,7 @@ import {
   CssBaseline,
   FormControlLabel,
   Grid,
-  Link,
+  Tab,
   Typography,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -18,7 +18,9 @@ import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "../../components/Copyright/Copyright";
 import Title from "../../components/Title/Title";
-
+import { connect, useSelector } from "react-redux";
+import { loginUser } from "../../store/actions/userActions";
+import { Link, useHistory } from "react-router-dom";
 // import "./App.css";
 
 type Profile = {
@@ -49,18 +51,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login() {
+function Login(props: any) {
+  //@ts-ignore
+  const authenticated = useSelector((state) => state.user.authenticated);
+  let history = useHistory();
+  if (authenticated) history.push("/main");
+
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<Profile>();
 
-  const onSubmit = handleSubmit((data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
-  });
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    setLoading(true);
 
+    const userData = {
+      email: values.email,
+      password: values.password,
+    };
+    props.loginUser(userData, props.history);
+    if (authenticated) history.push("/main");
+  };
+
+  const handleChange = (e: any) => {
+    e.persist();
+    setValues((values: any) => ({
+      ...values,
+      [e.target.name]: e.target.value,
+    }));
+  };
   //   const [textValue, setTextValue] = useState<string>("");
 
   const classes = useStyles();
@@ -72,7 +99,7 @@ function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Title title={"Sign in"} />
-        <form className={classes.form} onSubmit={onSubmit} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -81,11 +108,12 @@ function Login() {
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
+            type="email"
+            onChange={handleChange}
+            // autoComplete="email"
             autoFocus
           />
           {errors.email && <div className="error">Fill you email</div>}
-
           <TextField
             variant="outlined"
             margin="normal"
@@ -95,8 +123,15 @@ function Login() {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            onChange={handleChange}
+            // autoComplete="current-password"
           />
+          <div>Please use credentials: </div>
+          <div>email: andy.vilson@gmail.com</div>
+          <div>password: 123456*</div>
+          or
+          <div>email: oleksii.chaika@gmail.com</div>
+          <div>password: 123456!</div>
           {errors.password && <div className="error">Fill you password</div>}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -113,14 +148,10 @@ function Login() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+              <Link to="/forgot-password">Forgot password?</Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <Link to="/signup">Don't have an account? Sign Up</Link>
             </Grid>
           </Grid>
         </form>
@@ -132,4 +163,14 @@ function Login() {
   );
 }
 
-export default Login;
+//this map the states to our props in this functional component
+const mapStateToProps = (state: any) => ({
+  user: state.user,
+  UI: state.UI,
+});
+//this map actions to our props in this functional component
+const mapActionsToProps = {
+  loginUser,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Login);
